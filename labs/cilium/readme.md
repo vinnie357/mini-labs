@@ -1,2 +1,0 @@
-# cilium on kind
-
