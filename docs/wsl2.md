@@ -13,7 +13,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
 wsl --set-default-version 2
 wsl --update
 wsl --list --online
-wsl --install -d DISTRO-NAME
+wsl --install -d <DISTRO-NAME>
 ```
 
 ## already running? check your version ubuntu
