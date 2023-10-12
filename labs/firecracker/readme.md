@@ -2,6 +2,11 @@
 
 ## setup
 
+```bash
+# get images
+. get_images.sh
+```
+
 ## start
 
 ```json
