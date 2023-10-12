@@ -2,6 +2,9 @@
 
 settings for local laptop labs using Wsl2 where possible.
 
+current equipment is a surface pro 9 with win11.
+
+
 ## laptop tools
 windows 11
 hyperv
