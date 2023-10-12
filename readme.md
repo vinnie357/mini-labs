@@ -1,6 +1,6 @@
-# laptop lab
+# mini-labs
 
-settings for local laptop lab
+settings for local laptop labs using Wsl2 where possible.
 
 ## laptop tools
 windows 11
@@ -48,4 +48,27 @@ kind delete cluster
 
 # vagrant
 . ./scripts/vagrant.sh
+```
+
+### [hashi-stack](labs/hashicorp/hashi-stack/readme.md)
+
+```bash
+# docker
+. /scripts/docker.sh
+
+# docker-compose
+. /scripts/docker-compose.sh
+
+cd labs/hashicorp/hashi-stack
+
+```
+
+### [firecracker](labs/firecracker/readme.md)
+
+```bash
+# kvm
+. scripts/kvm-qemu.sh
+# firecracker 
+. scripts/firecracker.sh
+
 ```

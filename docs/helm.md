@@ -1,5 +1,7 @@
 # helm
 
+`keep in mind that helm installs itself into your k8s cluster so you should have one running for the init process.`
+
 ## setup
 ```bash
 helm version
