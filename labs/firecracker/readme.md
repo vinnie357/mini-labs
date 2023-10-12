@@ -9,17 +9,20 @@
 
 ## start
 
-```json
+```bash
+kernelImage="machines/vmlinux-5.10.197"
+diskImage="machines/ubuntu-22.04.ext4"
+cat <<EOF > vmconfig.json
 {
   "boot-source": {
-    "kernel_image_path": "vmlinux.bin",
+    "kernel_image_path": "${kernelImage}",
     "boot_args": "console=ttyS0 reboot=k panic=1 pci=off",
     "initrd_path": null
   },
   "drives": [
     {
       "drive_id": "rootfs",
-      "path_on_host": "bionic.rootfs.ext4",
+      "path_on_host": "${diskImage}",
       "is_root_device": true,
       "partuuid": null,
       "is_read_only": false,
@@ -43,6 +46,16 @@
   "mmds-config": null,
   "entropy": null
 }
+EOF
+```
+
+## run
+```bash
+API_SOCKET="/tmp/firecracker.socket"
+# Remove API unix socket
+rm -f $API_SOCKET
+firecracker --api-sock "${API_SOCKET}"
+firecracker --api-sock /tmp/firecracker.socket --config-file vmconfig.json
 ```
 
 ## stop
@@ -50,4 +63,5 @@
 ```bash
 rm -f $API_SOCKET
 unset API_SOCKET
+
 ```
