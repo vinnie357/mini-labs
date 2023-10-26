@@ -46,9 +46,16 @@ kind delete cluster
 
 ### vagrant with hyperv
 
-```bash
+`note: requires enabling hyperv`
+ - add windows features
+    - windows hypervisor
+
+
 # hyperv
 
+[install hyperv](docs/hyperv.md)
+
+```bash
 # vagrant
 . ./scripts/vagrant.sh
 ```

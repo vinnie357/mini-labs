@@ -50,12 +50,17 @@ This guide assumes basic knowledge of Windows and Linux systems and how Vagrant 
 * Navigate to somewhere on your ``C:\\`` drive in WSL (``/mnt/c/``) and create a folder. **This is required due to how Vagrant and Hyper-V handles files.**
 * Then inside that folder create a file named ``vagrantfile``
 * Add the following into the file
-    ```
-    Vagrant.configure(2) do |config|
-        config.vm.box = "generic/ubuntu2004"
-        config.vm.provider "hyperv"
-    end
+    ```bash
+        cat << 'EOF' > vagrantfile
+
+        Vagrant.configure(2) do |config|
+            config.vm.box = "generic/ubuntu2204"
+            config.vm.provider "hyperv"
+        end
+
+        EOF
     ```
 * Save the file and then run ``vagrant up``
 * If everything is setup correctly then you are done and you have setup Vagrant in WSL to control Hyper-V
 ```
+
