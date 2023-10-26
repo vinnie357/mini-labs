@@ -2,6 +2,11 @@
 
 https://gist.github.com/HonkinWaffles/ec48e5c37f2c410c07d97cfb0a0d016d#file-vagrant_setup-md
 
+
+## wsl2
+
+https://developer.hashicorp.com/vagrant/docs/other/wsl
+
 ```markdown
 # Vagrant With Windows, WSL2 and Hyper-V
 To say getting this configuration working is a pain in the ass is an understatement. However, once it is working correctly you gain access to tools like Ansible and full performance VMs inside Windows. This guide covers the steps I followed to get things working correctly with this configuration. It is possible that something may not work for you however I have been able to reproduce this success on two Windows 11 Pro machines and expect this to work for others.
@@ -64,3 +69,14 @@ This guide assumes basic knowledge of Windows and Linux systems and how Vagrant 
 * If everything is setup correctly then you are done and you have setup Vagrant in WSL to control Hyper-V
 ```
 
+https://thedatabaseme.de/2022/02/20/vagrant-up-running-vagrant-under-wsl2/
+
+```bash
+# Setup Vagrant
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+
+#export PATH="$PATH:/mnt/d/Programs/Virtualbox"
+#export PATH="$PATH:/mnt/c/windows/system32/cmd.exe"
+```
+
+https://github.com/hashicorp/vagrant/issues/11724
