@@ -24,3 +24,18 @@ end
 
 EOF
 ```
+mkdir /mnt/c/Users/<you>/mini-labs
+ln -s /mnt/c/Users/<username>/mini-labs ~/mini-labs
+
+ln -s /mnt/c/Users/vinni/mini-labs ~/
+
+cd ~/mini-labs
+unlink mini-labs
+
+## work around windows vs linux file permissions
+```bash
+mkdir -p /mnt/c/Users/vinni/mini-labs/vagrant-maas
+cp -r $PWD /mnt/c/Users/vinnie/mini-labs/vagrant-maas
+cd /mnt/c/Users/vinnie/mini-labs/vagrant-maas
+vagrant up
+``
