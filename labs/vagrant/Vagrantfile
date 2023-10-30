@@ -1,0 +1,28 @@
+Vagrant.configure(2) do |config|
+    config.vm.box = "generic/ubuntu2204"
+    config.vm.network "public_network", bridge: "vagrant"
+    config.vm.provider "hyperv" do |hyperv|
+        hyperv.cpus = 2
+        hyperv.memory = 2048
+        # allow nested virtualization
+        # egrep -c '(vmx|svm)' /proc/cpuinfo
+        # sudo kvm-ok
+        hyperv.enable_virtualization_extensions = true
+    end
+    #https://github.com/rafamoreira/vagrant-shell-provisioner/tree/master
+    config.vm.provision :shell, path: "scripts/upgrade-debian.sh"
+    config.vm.provision :shell, path: "scripts/qemu-debian.sh"
+end
+
+#https://developer.hashicorp.com/vagrant/docs/multi-machine
+# Vagrant.configure("2") do |config|
+#     config.vm.provision "shell", inline: "echo Hello"
+  
+#     config.vm.define "maas", primary: true do |web|
+#       web.vm.box = "generic/ubuntu2204"
+#     end
+  
+#     config.vm.define "vm1" do |db|
+#       db.vm.box = "generic/ubuntu2204"
+#     end
+#   end

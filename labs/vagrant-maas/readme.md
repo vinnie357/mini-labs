@@ -1,6 +1,6 @@
 # little crazy nested virt 
 
-trying to use vagrant hyperv and maas from wsl2
+building on vagrant hyperv from wsl2 to add maas and get a little crazier.
 
 
 - [hyperv](../../docs/hyperv.md)
@@ -24,18 +24,15 @@ end
 
 EOF
 ```
-mkdir /mnt/c/Users/<you>/mini-labs
-ln -s /mnt/c/Users/<username>/mini-labs ~/mini-labs
-
-ln -s /mnt/c/Users/vinni/mini-labs ~/
-
-cd ~/mini-labs
-unlink mini-labs
 
 ## work around windows vs linux file permissions
 ```bash
 mkdir -p /mnt/c/Users/vinni/mini-labs/vagrant-maas
-cp -r $PWD /mnt/c/Users/vinnie/mini-labs/vagrant-maas
-cd /mnt/c/Users/vinnie/mini-labs/vagrant-maas
+cp -r ./ /mnt/c/Users/vinni/mini-labs/vagrant-maas
+cd /mnt/c/Users/vinni/mini-labs/vagrant-maas
 vagrant up
-``
+```
+
+## layout multi machine with maas
+
+https://developer.hashicorp.com/vagrant/docs/multi-machine

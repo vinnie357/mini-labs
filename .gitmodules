@@ -1,0 +1,4 @@
+[submodule "labs/packer/scripts-library"]
+	path = labs/packer/scripts-library
+	url = https://github.com/vinnie357/scripts-library/
+	branch = main

@@ -2,19 +2,21 @@
 
 settings for local laptop labs using Wsl2 where possible.
 
-current equipment is a surface pro 9 with win11.
+current equipment is a surface pro 9 with win11. 16GB
 
 
 ## laptop tools
-windows 11
-hyperv
-vagrant
-minikube
-docker-ce
 
-vscode
-    plugins
-    GitHub.copilot
+ - windows 11
+ - hyperv
+ - vagrant
+ - minikube
+ - docker-ce
+
+vscode plugins
+
+    - GitHub.copilot
+    - HashiCorp.HCL
 
 
 ## setup
