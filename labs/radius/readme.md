@@ -1,6 +1,6 @@
-# (radius)[https://radapp.io/]
+# [radius](https://radapp.io/)
 
-no not (RFC2865)[https://datatracker.ietf.org/doc/html/rfc2865] 
+No not [RFC2865](https://datatracker.ietf.org/doc/html/rfc2865)
 
 ## requirements
 
@@ -10,7 +10,7 @@ no not (RFC2865)[https://datatracker.ietf.org/doc/html/rfc2865]
     - running k8s cluster
         going to use our kind example
 
-## (install)[https://docs.radapp.io/installation/]
+## [install](https://docs.radapp.io/installation/)
 
 `note this also installs rad-cli and bicep`
 
@@ -38,7 +38,7 @@ rad env list
 kubectl -n radius-system get all
 ```
 
-## (hello-world app)[https://docs.radapp.io/tutorials/new-app/]
+## [hello-world app](https://docs.radapp.io/tutorials/new-app/)
 
 ### base app deployment
 

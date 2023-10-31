@@ -1,13 +1,13 @@
-# (radius)[https://radapp.io/]
+# [radius](https://radapp.io/)
 
-no not (RFC2865)[https://datatracker.ietf.org/doc/html/rfc2865] 
+No not [RFC2865](https://datatracker.ietf.org/doc/html/rfc2865)
 
 ## requirements
 
     - vscode extension	`ms-azuretools.rad-vscode-bicep`
         this is temporary until bicep supports radius directly.
 
-## (install)[https://docs.radapp.io/installation/]
+## [install](https://docs.radapp.io/installation/)
 
 `note this also installs rad-cli and bicep`
 
