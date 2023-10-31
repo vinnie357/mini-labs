@@ -3,3 +3,4 @@ labs/firecracker/machines/*
 .vagrant
 output-my-vagrant/*
 *.box
+.rad
