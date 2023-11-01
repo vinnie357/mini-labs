@@ -1,13 +1,13 @@
 #!/bin/bash
 DIR=$(pwd)
 mkdir -p machines
-
+KERNERL_VERSION=5.10.198
 ARCH="$(uname -m)"
 
 cd machines
 
 # Download a linux kernel binary
-wget -nc https://s3.amazonaws.com/spec.ccfc.min/firecracker-ci/v1.6/${ARCH}/vmlinux-5.10.197
+wget -nc https://s3.amazonaws.com/spec.ccfc.min/firecracker-ci/v1.6/${ARCH}/vmlinux-${KERNERL_VERSION}
 
 # Download a rootfs
 wget -nc https://s3.amazonaws.com/spec.ccfc.min/firecracker-ci/v1.6/${ARCH}/ubuntu-22.04.ext4

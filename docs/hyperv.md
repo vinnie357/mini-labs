@@ -27,4 +27,20 @@ log out and login for the new permissions to take effect
 
 https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/enable-nested-virtualization
 
+### vgrant can enable nested virt
 
+```vagrant
+config.vm.provider "hyperv" do |hyperv|
+    hyperv.cpus = 2
+    hyperv.memory = 2048
+    # allow nested virtualization
+    hyperv.enable_virtualization_extensions = true
+```
+
+verify nested virt on a vm
+
+```bash
+egrep -c '(vmx|svm)' /proc/cpuinfo
+# assumes kvm is installed for kvm-ok
+sudo kvm-ok
+```

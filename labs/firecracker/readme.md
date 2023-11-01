@@ -9,8 +9,14 @@
 
 ## start
 
+`Check for latest kernel builds  https://s3.amazonaws.com/spec.ccfc.min/`
 ```bash
-kernelImage="machines/vmlinux-5.10.197"
+curl -s https://s3.amazonaws.com/spec.ccfc.min/ | xmllint --xpath "//*/*" - | grep -e '<Key>firecracker-ci/v1.6/x86_64/vmlinux-'
+```
+
+```bash
+KERNEL_VERSION=5.10.198
+kernelImage="machines/vmlinux-${KERNEL_VERSION}"
 diskImage="machines/ubuntu-22.04.ext4"
 cat <<EOF > vmconfig.json
 {
@@ -54,13 +60,16 @@ EOF
 API_SOCKET="/tmp/firecracker.socket"
 # Remove API unix socket
 rm -f $API_SOCKET
-firecracker --api-sock "${API_SOCKET}"
-firecracker --api-sock /tmp/firecracker.socket --config-file vmconfig.json
+sudo firecracker --api-sock "${API_SOCKET}" --config-file vmconfig.json
+#sudo firecracker --api-sock /tmp/firecracker.socket --config-file vmconfig.json
 ```
 
 ## stop
 
 ```bash
+# to stop the firecracker vm issue a reboot command
+reboot
+# remove the used socket
 rm -f $API_SOCKET
 unset API_SOCKET
 

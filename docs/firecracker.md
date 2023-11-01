@@ -16,6 +16,9 @@
 https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
 
 `Check for latest kernel builds  https://s3.amazonaws.com/spec.ccfc.min/`
+```bash
+curl -s https://s3.amazonaws.com/spec.ccfc.min/ | xmllint --xpath "//*/*" - | grep -e '<Key>firecracker-ci/v1.6/x86_64/vmlinux-'
+```
 
 ```bash
 

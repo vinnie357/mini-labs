@@ -26,7 +26,7 @@ depends on what tools you want to use
 ### common
 
 ```bash
-. ./scripts/wsl-conf.sh
+. scripts/wsl-conf.sh
 # restart wsl
 ```
 
@@ -36,9 +36,9 @@ restart wsl
 
 ```bash
 
-. ./scripts/docker.sh
-. ./scripts/kind.sh
-. ./scripts/kubectl.sh
+. scripts/docker.sh
+. scripts/kind.sh
+. scripts/kubectl.sh
 # https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster
 kind create cluster
 kubectl get pods --all-namespaces
@@ -50,26 +50,21 @@ kind delete cluster
 
 `note: requires enabling hyperv`
  - add windows features
-    - windows hypervisor
-
-
-# hyperv
-
-[install hyperv](docs/hyperv.md)
+    - windows hypervisor [hyperv](docs/hyperv.md)
 
 ```bash
 # vagrant
-. ./scripts/vagrant.sh
+. scripts/vagrant.sh
 ```
 
 ### [hashi-stack](labs/hashicorp/hashi-stack/readme.md)
 
 ```bash
 # docker
-. /scripts/docker.sh
+. scripts/docker.sh
 
 # docker-compose
-. /scripts/docker-compose.sh
+. scripts/docker-compose.sh
 
 cd labs/hashicorp/hashi-stack
 
