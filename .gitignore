@@ -4,3 +4,8 @@ labs/firecracker/machines/*
 output-my-vagrant/*
 *.box
 .rad
+# binaries from labs
+labs/nix/nix-shell/golang/hello
+labs/nix/nix-shell/rust/main
+# lab files
+labs/nix/nix-shell/gleam/vars
