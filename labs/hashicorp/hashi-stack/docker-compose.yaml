@@ -3,7 +3,7 @@ version: "2.1"
 services:
   # nomad
   # nomad-dev:
-  #   image: multani/nomad
+  #   image: hashicorp/nomad:1.7
   #   command: agent -dev
   #   privileged: false
   #   # network_mode: host
@@ -19,48 +19,49 @@ services:
   #     - 'nomad-dev_data:/nomad/data/'
   #     -  ./nomad/dev.hcl:/etc/nomad.d/dev.hcl
   nomad-server1:
-    image: multani/nomad
-    command: agent -server
+    image: hashicorp/nomad:1.7
+    command: agent -config=/etc/nomad.d
     privileged: false
     # network_mode: host
-    environment:
-      NOMAD_LOCAL_CONFIG: |
-        data_dir = "/nomad/data/"
-        bind_addr = "0.0.0.0"
-        datacenter = "dc1"
-        server {
-            enabled = true
-            bootstrap_expect = 1
-            server_join {
-              retry_join = ["nomad-server1","nomad-server2","nomad-server3"]
-            }
-        }
-        advertise {
-          http = "{{GetInterfaceIP \"eth1\"}}"
-          rpc  = "{{GetInterfaceIP \"eth1\"}}"
-          serf = "{{GetInterfaceIP \"eth1\"}}"
-        }
-        consul {
-            address             = "consul-node1:8500"
-            server_service_name = "nomad"
-            client_service_name = "nomad-client"
-            checks_use_advertise = true
-            auto_advertise      = true
-            server_auto_join    = true
-            client_auto_join    = true
-            # token = "${consul_acl_token}"
-        }
-        acl {
-          enabled = false
-        }
-        client {
-          enabled = false
-        }
-        vault {
-          enabled = true
-          address = "http://vault-server1:8200"
-          token = "${vault_token}"
-        }
+   
+   # environment:
+      # NOMAD_LOCAL_CONFIG: |
+      #   data_dir = "/nomad/data/"
+      #   bind_addr = "0.0.0.0"
+      #   datacenter = "dc1"
+      #   server {
+      #       enabled = true
+      #       bootstrap_expect = 1
+      #       server_join {
+      #         retry_join = ["nomad-server1","nomad-server2","nomad-server3"]
+      #       }
+      #   }
+      #   advertise {
+      #     http = "{{GetInterfaceIP \"eth1\"}}"
+      #     rpc  = "{{GetInterfaceIP \"eth1\"}}"
+      #     serf = "{{GetInterfaceIP \"eth1\"}}"
+      #   }
+      #   consul {
+      #       address             = "consul-node1:8500"
+      #       server_service_name = "nomad"
+      #       client_service_name = "nomad-client"
+      #       checks_use_advertise = true
+      #       auto_advertise      = true
+      #       server_auto_join    = true
+      #       client_auto_join    = true
+      #       # token = "${consul_acl_token}"
+      #   }
+      #   acl {
+      #     enabled = false
+      #   }
+      #   client {
+      #     enabled = false
+      #   }
+      #   vault {
+      #     enabled = true
+      #     address = "http://vault-server1:8200"
+      #     token = "${vault_token}"
+      #   }
     ports:
       - "4646:4646"
       - "4647:4647"
@@ -69,287 +70,287 @@ services:
       - "nomad-server1_data:/nomad/data/"
       - ./nomad/server.hcl:/etc/nomad.d/server.hcl
   nomad-server2:
-    image: multani/nomad
-    command: agent -server
+    image: hashicorp/nomad:1.7
+    command: agent -config=/etc/nomad.d
     privileged: false
     # network_mode: host
-    environment:
-      NOMAD_LOCAL_CONFIG: |
-        data_dir = "/nomad/data/"
-        bind_addr = "0.0.0.0"
-        datacenter = "dc1"
-        server {
-            enabled = true
-            bootstrap_expect = 3
-            server_join {
-              retry_join = ["nomad-server1","nomad-server2","nomad-server3"]
-            }
-        }
-        advertise {
-          http = "{{GetInterfaceIP \"eth1\"}}"
-          rpc  = "{{GetInterfaceIP \"eth1\"}}"
-          serf = "{{GetInterfaceIP \"eth1\"}}"
-        }
-        consul {
-            address             = "consul-node1:8500"
-            server_service_name = "nomad"
-            client_service_name = "nomad-client"
-            checks_use_advertise = true
-            auto_advertise      = true
-            server_auto_join    = true
-            client_auto_join    = true
-            # token = "${consul_acl_token}"
-        }
-        acl {
-          enabled = false
-        }
-        client {
-          enabled = false
-        }
-        vault {
-          enabled = true
-          address = "http://vault-server1:8200"
-          token = "${vault_token}"
-        }
+   #  environment:
+      # NOMAD_LOCAL_CONFIG: |
+      #   data_dir = "/nomad/data/"
+      #   bind_addr = "0.0.0.0"
+      #   datacenter = "dc1"
+      #   server {
+      #       enabled = true
+      #       bootstrap_expect = 3
+      #       server_join {
+      #         retry_join = ["nomad-server1","nomad-server2","nomad-server3"]
+      #       }
+      #   }
+      #   advertise {
+      #     http = "{{GetInterfaceIP \"eth1\"}}"
+      #     rpc  = "{{GetInterfaceIP \"eth1\"}}"
+      #     serf = "{{GetInterfaceIP \"eth1\"}}"
+      #   }
+      #   consul {
+      #       address             = "consul-node1:8500"
+      #       server_service_name = "nomad"
+      #       client_service_name = "nomad-client"
+      #       checks_use_advertise = true
+      #       auto_advertise      = true
+      #       server_auto_join    = true
+      #       client_auto_join    = true
+      #       # token = "${consul_acl_token}"
+      #   }
+      #   acl {
+      #     enabled = false
+      #   }
+      #   client {
+      #     enabled = false
+      #   }
+      #   vault {
+      #     enabled = true
+      #     address = "http://vault-server1:8200"
+      #     token = "${vault_token}"
+      #   }
     volumes:
       - "nomad-server2_data:/nomad/data/"
       - ./nomad/server.hcl:/etc/nomad.d/server.hcl
   nomad-server3:
-    image: multani/nomad
-    command: agent -server
+    image: hashicorp/nomad:1.7
+    command: agent -server -config=/etc/nomad.d
     privileged: false
     # network_mode: host
-    environment:
-      NOMAD_LOCAL_CONFIG: |
-        data_dir = "/nomad/data/"
-        bind_addr = "0.0.0.0"
-        datacenter = "dc1"
-        server {
-            enabled = true
-            bootstrap_expect = 3
-            server_join {
-              retry_join = ["nomad-server1","nomad-server2","nomad-server3"]
-            }
-        }
-        advertise {
-          http = "{{GetInterfaceIP \"eth1\"}}"
-          rpc  = "{{GetInterfaceIP \"eth1\"}}"
-          serf = "{{GetInterfaceIP \"eth1\"}}"
-        }
-        consul {
-            address             = "consul-node1:8500"
-            server_service_name = "nomad"
-            client_service_name = "nomad-client"
-            checks_use_advertise = true
-            auto_advertise      = true
-            server_auto_join    = true
-            client_auto_join    = true
-            # token = "${consul_acl_token}"
-        }
-        acl {
-          enabled = false
-        }
-        client {
-          enabled = false
-        }
-        vault {
-          enabled = true
-          address = "http://vault-server1:8200"
-          token = "${vault_token}"
-        }
+   #  environment:
+      # NOMAD_LOCAL_CONFIG: |
+      #   data_dir = "/nomad/data/"
+      #   bind_addr = "0.0.0.0"
+      #   datacenter = "dc1"
+      #   server {
+      #       enabled = true
+      #       bootstrap_expect = 3
+      #       server_join {
+      #         retry_join = ["nomad-server1","nomad-server2","nomad-server3"]
+      #       }
+      #   }
+      #   advertise {
+      #     http = "{{GetInterfaceIP \"eth1\"}}"
+      #     rpc  = "{{GetInterfaceIP \"eth1\"}}"
+      #     serf = "{{GetInterfaceIP \"eth1\"}}"
+      #   }
+      #   consul {
+      #       address             = "consul-node1:8500"
+      #       server_service_name = "nomad"
+        #     client_service_name = "nomad-client"
+        #     checks_use_advertise = true
+        #     auto_advertise      = true
+        #     server_auto_join    = true
+        #     client_auto_join    = true
+        #     # token = "${consul_acl_token}"
+        # }
+        # acl {
+        #   enabled = false
+        # }
+        # client {
+        #   enabled = false
+        # }
+        # vault {
+        #   enabled = true
+        #   address = "http://vault-server1:8200"
+        #   token = "${vault_token}"
+        # }
     volumes:
       - "nomad-server3_data:/nomad/data/"
       - ./nomad/server.hcl:/etc/nomad.d/server.hcl
-  nomad-worker1:
-    image: multani/nomad
-    command: agent -client
+  nomad-client1:
+    image: hashicorp/nomad:1.7
+    command: agent -client -config=/etc/nomad.d
     privileged: true
     # network_mode: host
-    environment:
-      NOMAD_LOCAL_CONFIG: |
-        data_dir = "/nomad/data/"
-        bind_addr = "0.0.0.0"
-        client {
-          enabled = true
-          server_join {
-            retry_join =  ["nomad-server1"]
-          }
-        }
-        advertise {
-          http = "{{GetInterfaceIP \"eth1\"}}"
-          rpc  = "{{GetInterfaceIP \"eth1\"}}"
-          serf = "{{GetInterfaceIP \"eth1\"}}"
-        }
-        consul {
-          address             = "consul-node1:8500"
-          server_service_name = "nomad"
-          client_service_name = "nomad-client"
-          checks_use_advertise = true
-          auto_advertise      = true
-          server_auto_join    = true
-          client_auto_join    = true
-          # token = "${consul_acl_token}"
-        }
-        plugin "raw_exec" {
-          config {
-            enabled = true
-          }
-        }
-        plugin "docker" {
-            config {
-            auth {
-                #config = "/etc/docker.d/docker_config.json"
-                // config = "/root/.docker/config.json"
-                # Nomad will prepend "docker-credential-" to the helper value and call
-                # that script name.
-                # helper = "gcloud"
-            }
-            volumes {
-                enabled = true
-            }
-            }
-        }
-        vault {
-          enabled     = true
-          address     = "http://vault-server1:8200"
-          #   namespace   = "${vault_namespace}"
-          # ca_path     = "/etc/certs/ca"
-          # cert_file   = "/var/certs/vault.crt"
-          # key_file    = "/var/certs/vault.key"
-        }
+   #  environment:
+      # NOMAD_LOCAL_CONFIG: |
+      #   data_dir = "/nomad/data/"
+      #   bind_addr = "0.0.0.0"
+      #   client {
+      #     enabled = true
+      #     server_join {
+      #       retry_join =  ["nomad-server1"]
+      #     }
+      #   }
+      #   advertise {
+      #     http = "{{GetInterfaceIP \"eth1\"}}"
+      #     rpc  = "{{GetInterfaceIP \"eth1\"}}"
+      #     serf = "{{GetInterfaceIP \"eth1\"}}"
+      #   }
+      #   consul {
+      #     address             = "consul-node1:8500"
+      #     server_service_name = "nomad"
+      #     client_service_name = "nomad-client"
+      #     checks_use_advertise = true
+      #     auto_advertise      = true
+      #     server_auto_join    = true
+      #     client_auto_join    = true
+      #     # token = "${consul_acl_token}"
+      #   }
+      #   plugin "raw_exec" {
+      #     config {
+      #       enabled = true
+      #     }
+      #   }
+      #   plugin "docker" {
+      #       config {
+      #       auth {
+      #           #config = "/etc/docker.d/docker_config.json"
+      #           // config = "/root/.docker/config.json"
+      #           # Nomad will prepend "docker-credential-" to the helper value and call
+      #           # that script name.
+      #           # helper = "gcloud"
+      #       }
+      #       volumes {
+      #           enabled = true
+      #       }
+      #       }
+      #   }
+      #   vault {
+      #     enabled     = true
+      #     address     = "http://vault-server1:8200"
+      #     #   namespace   = "${vault_namespace}"
+      #     # ca_path     = "/etc/certs/ca"
+      #     # cert_file   = "/var/certs/vault.crt"
+      #     # key_file    = "/var/certs/vault.key"
+      #   }
     # ports:
     #   # - "4646:4646"
     #   - "4647:4647"
     #   - "4648:4648"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
-      - "nomad-worker1_data:/nomad/data/"
-      - ./nomad/worker.hcl:/etc/nomad.d/worker.hcl
-  nomad-worker2:
-    image: multani/nomad
-    command: agent -client
+      - "nomad-client1_data:/nomad/data/"
+      - ./nomad/client.hcl:/etc/nomad.d/client.hcl
+  nomad-client2:
+    image: hashicorp/nomad:1.7
+    command: agent -client -config=/etc/nomad.d
     privileged: true
     #network_mode: host
-    environment:
-      NOMAD_LOCAL_CONFIG: |
-        data_dir = "/nomad/data/"
-        bind_addr = "0.0.0.0"
-        client {
-          enabled = true
-          server_join {
-            retry_join =  ["nomad-server1"]
-          }
-        }
-        advertise {
-          http = "{{GetInterfaceIP \"eth1\"}}"
-          rpc  = "{{GetInterfaceIP \"eth1\"}}"
-          serf = "{{GetInterfaceIP \"eth1\"}}"
-        }
-        consul {
-          address             = "consul-node1:8500"
-          server_service_name = "nomad"
-          client_service_name = "nomad-client"
-          checks_use_advertise = true
-          auto_advertise      = true
-          server_auto_join    = true
-          client_auto_join    = true
-          # token = "${consul_acl_token}"
-        }
-        plugin "raw_exec" {
-          config {
-            enabled = true
-          }
-        }
-        plugin "docker" {
-            config {
-            auth {
-                #config = "/etc/docker.d/docker_config.json"
-                // config = "/root/.docker/config.json"
-                # Nomad will prepend "docker-credential-" to the helper value and call
-                # that script name.
-                # helper = "gcloud"
-            }
-            volumes {
-                enabled = true
-            }
-            }
-        }
-        vault {
-          enabled     = true
-          address     = "http://vault-server1:8200"
-          #   namespace   = "${vault_namespace}"
-          # ca_path     = "/etc/certs/ca"
-          # cert_file   = "/var/certs/vault.crt"
-          # key_file    = "/var/certs/vault.key"
-        }
+   #  environment:
+      # NOMAD_LOCAL_CONFIG: |
+      #   data_dir = "/nomad/data/"
+      #   bind_addr = "0.0.0.0"
+      #   client {
+      #     enabled = true
+      #     server_join {
+      #       retry_join =  ["nomad-server1"]
+      #     }
+      #   }
+      #   advertise {
+      #     http = "{{GetInterfaceIP \"eth1\"}}"
+      #     rpc  = "{{GetInterfaceIP \"eth1\"}}"
+      #     serf = "{{GetInterfaceIP \"eth1\"}}"
+      #   }
+      #   consul {
+      #     address             = "consul-node1:8500"
+      #     server_service_name = "nomad"
+      #     client_service_name = "nomad-client"
+      #     checks_use_advertise = true
+      #     auto_advertise      = true
+      #     server_auto_join    = true
+      #     client_auto_join    = true
+      #     # token = "${consul_acl_token}"
+      #   }
+      #   plugin "raw_exec" {
+      #     config {
+      #       enabled = true
+      #     }
+      #   }
+      #   plugin "docker" {
+      #       config {
+      #       auth {
+      #           #config = "/etc/docker.d/docker_config.json"
+      #           // config = "/root/.docker/config.json"
+      #           # Nomad will prepend "docker-credential-" to the helper value and call
+      #           # that script name.
+      #           # helper = "gcloud"
+      #       }
+      #       volumes {
+      #           enabled = true
+      #       }
+      #       }
+      #   }
+      #   vault {
+      #     enabled     = true
+      #     address     = "http://vault-server1:8200"
+      #     #   namespace   = "${vault_namespace}"
+      #     # ca_path     = "/etc/certs/ca"
+      #     # cert_file   = "/var/certs/vault.crt"
+      #     # key_file    = "/var/certs/vault.key"
+      #   }
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
-      - "nomad-worker2_data:/nomad/data/"
-      - ./nomad/worker.hcl:/etc/nomad.d/worker.hcl
-  nomad-worker3:
-    image: multani/nomad
-    command: agent -client
+      - "nomad-client2_data:/nomad/data/"
+      - ./nomad/client.hcl:/etc/nomad.d/client.hcl
+  nomad-client3:
+    image: hashicorp/nomad:1.7
+    command: agent -client -config=/etc/nomad.d
     privileged: true
     # network_mode: host
-    environment:
-      NOMAD_LOCAL_CONFIG: |
-        data_dir = "/nomad/data/"
-        bind_addr = "0.0.0.0"
-        client {
-          enabled = true
-          server_join {
-            retry_join =  ["nomad-server1"]
-          }
-        }
-        advertise {
-          http = "{{GetInterfaceIP \"eth1\"}}"
-          rpc  = "{{GetInterfaceIP \"eth1\"}}"
-          serf = "{{GetInterfaceIP \"eth1\"}}"
-        }
-        consul {
-          address             = "consul-node1:8500"
-          server_service_name = "nomad"
-          client_service_name = "nomad-client"
-          checks_use_advertise = true
-          auto_advertise      = true
-          server_auto_join    = true
-          client_auto_join    = true
-          # token = "${consul_acl_token}"
-        }
-        plugin "raw_exec" {
-          config {
-            enabled = true
-          }
-        }
-        plugin "docker" {
-            config {
-            auth {
-                #config = "/etc/docker.d/docker_config.json"
-                // config = "/root/.docker/config.json"
-                # Nomad will prepend "docker-credential-" to the helper value and call
-                # that script name.
-                # helper = "gcloud"
-            }
-            volumes {
-                enabled = true
-            }
-            }
-        }
-        vault {
-          enabled     = true
-          address     = "http://vault-server1:8200"
-          #   namespace   = "${vault_namespace}"
-          # ca_path     = "/etc/certs/ca"
-          # cert_file   = "/var/certs/vault.crt"
-          # key_file    = "/var/certs/vault.key"
-        }
+   #  environment:
+      # NOMAD_LOCAL_CONFIG: |
+      #   data_dir = "/nomad/data/"
+      #   bind_addr = "0.0.0.0"
+      #   client {
+      #     enabled = true
+      #     server_join {
+      #       retry_join =  ["nomad-server1"]
+      #     }
+      #   }
+      #   advertise {
+      #     http = "{{GetInterfaceIP \"eth1\"}}"
+      #     rpc  = "{{GetInterfaceIP \"eth1\"}}"
+      #     serf = "{{GetInterfaceIP \"eth1\"}}"
+      #   }
+      #   consul {
+      #     address             = "consul-node1:8500"
+      #     server_service_name = "nomad"
+      #     client_service_name = "nomad-client"
+      #     checks_use_advertise = true
+      #     auto_advertise      = true
+      #     server_auto_join    = true
+      #     client_auto_join    = true
+      #     # token = "${consul_acl_token}"
+      #   }
+      #   plugin "raw_exec" {
+      #     config {
+      #       enabled = true
+      #     }
+      #   }
+      #   plugin "docker" {
+      #       config {
+      #       auth {
+      #           #config = "/etc/docker.d/docker_config.json"
+      #           // config = "/root/.docker/config.json"
+      #           # Nomad will prepend "docker-credential-" to the helper value and call
+      #           # that script name.
+      #           # helper = "gcloud"
+      #       }
+      #       volumes {
+      #           enabled = true
+      #       }
+      #       }
+      #   }
+      #   vault {
+      #     enabled     = true
+      #     address     = "http://vault-server1:8200"
+      #     #   namespace   = "${vault_namespace}"
+      #     # ca_path     = "/etc/certs/ca"
+      #     # cert_file   = "/var/certs/vault.crt"
+      #     # key_file    = "/var/certs/vault.key"
+      #   }
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
-      - "nomad-worker3_data:/nomad/data/"
-      - ./nomad/worker.hcl:/etc/nomad.d/worker.hcl
+      - "nomad-client3_data:/nomad/data/"
+      - ./nomad/client.hcl:/etc/nomad.d/client.hcl
   # consul
   consul-node1:
-    image: bitnami/consul
+    image: hashicorp/consul
     environment:
       - CONSUL_BOOTSTRAP_EXPECT=3
       - CONSUL_CLIENT_LAN_ADDRESS=0.0.0.0
@@ -363,10 +364,10 @@ services:
       - "8600:8600"
       - "8600:8600/udp"
     volumes:
-      - "consul-node1_data:/bitnami"
-      - ./consul/connect.hcl:/opt/bitnami/consul/conf/connect.hcl
+      - "consul-node1_data:/hashicorp"
+      - ./consul/connect.hcl:/opt/hashicorp/consul/conf/connect.hcl
   consul-node2:
-    image: bitnami/consul
+    image: hashicorp/consul
     environment:
       - CONSUL_BOOTSTRAP_EXPECT=3
       - CONSUL_CLIENT_LAN_ADDRESS=0.0.0.0
@@ -374,10 +375,10 @@ services:
       - CONSUL_RETRY_JOIN_ADDRESS=consul-node1
       - CONSUL_ENABLE_UI=false
     volumes:
-      - "consul-node2_data:/bitnami"
-      - ./consul/connect.hcl:/opt/bitnami/consul/conf/connect.hcl
+      - "consul-node2_data:/hashicorp"
+      - ./consul/connect.hcl:/opt/hashicorp/consul/conf/connect.hcl
   consul-node3:
-    image: bitnami/consul
+    image: hashicorp/consul
     environment:
       - CONSUL_BOOTSTRAP_EXPECT=3
       - CONSUL_CLIENT_LAN_ADDRESS=0.0.0.0
@@ -385,8 +386,8 @@ services:
       - CONSUL_RETRY_JOIN_ADDRESS=consul-node1
       - CONSUL_ENABLE_UI=false
     volumes:
-      - "consul-node3_data:/bitnami"
-      - ./consul/connect.hcl:/opt/bitnami/consul/conf/connect.hcl
+      - "consul-node3_data:/hashicorp"
+      - ./consul/connect.hcl:/opt/hashicorp/consul/conf/connect.hcl
   # vault
   vault-server1:
     image: hashicorp/vault:latest
@@ -413,11 +414,11 @@ volumes:
     driver: local
   nomad-server3_data:
     driver: local
-  nomad-worker1_data:
+  nomad-client1_data:
     driver: local
-  nomad-worker2_data:
+  nomad-client2_data:
     driver: local
-  nomad-worker3_data:
+  nomad-client3_data:
     driver: local
   nomad-dev_data:
     driver: local
