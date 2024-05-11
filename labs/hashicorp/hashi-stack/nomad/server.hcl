@@ -32,5 +32,4 @@ client {
 vault {
     enabled = true
     address = "http://vault-server1:8200"
-    token = "${vault_token}"
 }

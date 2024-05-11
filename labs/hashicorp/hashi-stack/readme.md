@@ -9,7 +9,13 @@ docker-compose
 ## setup
 
 ```
+# cni plugins global
+# version and root path
+. ../../../scripts/cni-plugins.sh 1.4.1 cni
+
+# set vars
 export vault_token="mytoken"
+
 # with logs
 docker-compose up
 

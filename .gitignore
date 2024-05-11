@@ -7,5 +7,7 @@ output-my-vagrant/*
 # binaries from labs
 labs/nix/nix-shell/golang/hello
 labs/nix/nix-shell/rust/main
+*.tgz
 # lab files
 labs/nix/nix-shell/gleam/vars
+labs/hashicorp/hashi-stack/cni

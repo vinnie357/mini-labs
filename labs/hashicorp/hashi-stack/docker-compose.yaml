@@ -226,6 +226,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - "nomad-client1_data:/nomad/data/"
       - ./nomad/client.hcl:/etc/nomad.d/client.hcl
+      - ./cni/bin:/opt/cni/bin
   nomad-client2:
     image: hashicorp/nomad:1.7
     command: agent -client -config=/etc/nomad.d
@@ -287,6 +288,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - "nomad-client2_data:/nomad/data/"
       - ./nomad/client.hcl:/etc/nomad.d/client.hcl
+      - ./cni/bin:/opt/cni/bin
   nomad-client3:
     image: hashicorp/nomad:1.7
     command: agent -client -config=/etc/nomad.d
@@ -348,6 +350,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - "nomad-client3_data:/nomad/data/"
       - ./nomad/client.hcl:/etc/nomad.d/client.hcl
+      - ./cni/bin:/opt/cni/bin
   # consul
   consul-node1:
     image: hashicorp/consul
@@ -391,12 +394,12 @@ services:
   # vault
   vault-server1:
     image: hashicorp/vault:latest
-    command: vault server -dev -dev-root-token-id="${vault_token}" -dev-listen-address="0.0.0.0:8200"
+    command: vault server -dev -dev-root-token-id="${vault_token:-mytoken}" -dev-listen-address="0.0.0.0:8200"
     ports:
       - "8200:8200"
     environment:
       VAULT_ADDR: "http://0.0.0.0:8200"
-      VAULT_DEV_ROOT_TOKEN_ID: "${vault_token}"
+      VAULT_DEV_ROOT_TOKEN_ID: "${vault_token:-mytoken}"
     cap_add:
       - IPC_LOCK
     volumes:
