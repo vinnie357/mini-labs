@@ -11,3 +11,7 @@ labs/nix/nix-shell/rust/main
 # lab files
 labs/nix/nix-shell/gleam/vars
 labs/hashicorp/hashi-stack/cni
+labs/nginx/unit/control.unit.sock
+labs/nginx/unit/unit.*
+labs/nginx/unit/state/conf.json
+
