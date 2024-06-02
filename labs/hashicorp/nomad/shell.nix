@@ -4,9 +4,12 @@ pkgs.mkShell {
   buildInputs = [ pkgs.nomad pkgs.docker  pkgs.xdg-utils ];
 shellHook =
   ''
-    if ! groups $USER | grep &>/dev/null '\bdocker\b'; then
-      echo "Warning: $USER is not in the docker group. Please add the user to the docker group."
-      exit 1
+    # for mac users skip the docker group check
+    if [ "$(uname)" = "Linux" ]; then
+      if ! groups $USER | grep &>/dev/null '\bdocker\b'; then
+        echo "Warning: $USER is not in the docker group. Please add the user to the docker group."
+        exit 1
+      fi
     fi
     nomad=$(echo $(which nomad))
     #alias nomad=$(echo $(which nomad))
