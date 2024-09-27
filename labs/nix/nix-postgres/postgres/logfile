@@ -1,0 +1,24 @@
+2024-09-27 12:28:57.704 EDT [7409] LOG:  starting PostgreSQL 15.6 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.2.0, 64-bit
+2024-09-27 12:28:57.704 EDT [7409] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2024-09-27 12:28:57.708 EDT [7409] LOG:  listening on Unix socket "/run/postgres/nix-pg/.s.PGSQL.5432"
+2024-09-27 12:28:57.716 EDT [7412] LOG:  database system was shut down at 2024-09-27 12:28:55 EDT
+2024-09-27 12:28:57.723 EDT [7409] LOG:  database system is ready to accept connections
+2024-09-27 12:28:57.794 EDT [7421] FATAL:  database "vinnie" does not exist
+2024-09-27 12:29:57.784 EDT [7409] LOG:  could not open file "postmaster.pid": No such file or directory
+2024-09-27 12:29:57.784 EDT [7409] LOG:  performing immediate shutdown because data directory lock file is invalid
+2024-09-27 12:29:57.784 EDT [7409] LOG:  received immediate shutdown request
+2024-09-27 12:29:57.784 EDT [7409] LOG:  could not open file "postmaster.pid": No such file or directory
+2024-09-27 12:29:57.786 EDT [7409] LOG:  database system is shut down
+2024-09-27 12:30:21.388 EDT [8191] LOG:  starting PostgreSQL 15.6 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.2.0, 64-bit
+2024-09-27 12:30:21.388 EDT [8191] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2024-09-27 12:30:21.394 EDT [8191] LOG:  listening on Unix socket "/run/postgres/nix-pg/.s.PGSQL.5432"
+2024-09-27 12:30:21.405 EDT [8195] LOG:  database system was shut down at 2024-09-27 12:30:18 EDT
+2024-09-27 12:30:21.412 EDT [8191] LOG:  database system is ready to accept connections
+2024-09-27 12:30:21.472 EDT [8204] FATAL:  database "vinnie" does not exist
+2024-09-27 12:30:26.857 EDT [8191] LOG:  received fast shutdown request
+2024-09-27 12:30:26.864 EDT [8191] LOG:  aborting any active transactions
+2024-09-27 12:30:26.866 EDT [8191] LOG:  background worker "logical replication launcher" (PID 8198) exited with exit code 1
+2024-09-27 12:30:26.867 EDT [8193] LOG:  shutting down
+2024-09-27 12:30:26.874 EDT [8193] LOG:  checkpoint starting: shutdown immediate
+2024-09-27 12:30:26.921 EDT [8193] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.011 s, sync=0.013 s, total=0.054 s; sync files=6, longest=0.006 s, average=0.002 s; distance=2 kB, estimate=2 kB
+2024-09-27 12:30:26.926 EDT [8191] LOG:  database system is shut down
