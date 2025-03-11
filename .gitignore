@@ -14,4 +14,4 @@ labs/hashicorp/hashi-stack/cni
 labs/nginx/unit/control.unit.sock
 labs/nginx/unit/unit.*
 labs/nginx/unit/state/conf.json
-
+labs/cloud-hypervisor/cloud-hypervisor/*
